@@ -30,7 +30,7 @@ function AdvertiseSection() {
                 alt="Rural land property" 
                 className="w-full h-64 object-cover"
               />
-              <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+              <div className="absolute inset-0  bg-opacity-30"></div>
               <div className="absolute bottom-0 left-0 p-4 text-white">
                 <h3 className="font-bold text-lg">Rural Land Investor</h3>
                 <p className="text-sm">Significant returns in buy, develop, build and resell</p>

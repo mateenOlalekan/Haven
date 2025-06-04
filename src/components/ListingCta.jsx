@@ -12,7 +12,7 @@ const ListingCTA = () => {
           backgroundPosition: 'center'
         }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        <div className="absolute inset-0  bg-opacity-40"></div>
         
         <div className="relative py-16 px-8 md:px-12 flex flex-col md:flex-row items-center justify-between">
           <div className="mb-8 md:mb-0 text-white max-w-lg">
