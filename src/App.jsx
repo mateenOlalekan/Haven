@@ -1,52 +1,107 @@
-import {Routes, Route } from "react-router-dom";
-import "./App.css";
-import {useState} from "react";
-
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useState, useEffect, lazy, Suspense } from "react";
+import { AnimatePresence } from "framer-motion";
+import { Toaster } from "react-hot-toast";
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import SearchBar from './components/SearchBar';
-import ShowcaseProperties from './components/ShowcaseProperty'
-import AdvertiseSection from './components/AdvertiseSection';
-import ListingCTA from './components/ListingCTA';
 import Footer from './components/Footer';
-import ExploreLand from './pages/ExploreLand';
-import SearchByState from './pages/SearchByState';
-import FindAgent from './pages/FindAgent';
-// import Activities from './pages/Activities';
-import SignIn from './pages/SignIn';
-import Login from './pages/Login';
-// import AddListing from './pages/AddListing';
-import Property from './components/Propertypes';
+
+// Lazy-loaded components
+const Hero = lazy(() => import('./components/Hero'));
+const SearchBar = lazy(() => import('./components/SearchBar'));
+const PropertyTypes = lazy(() => import('./components/Propertypes'));
+const ShowcaseProperties = lazy(() => import('./components/ShowcaseProperty'));
+const AdvertiseSection = lazy(() => import('./components/AdvertiseSection'));
+const ListingCTA = lazy(() => import('./components/ListingCTA'));
+const ExploreLand = lazy(() => import('./pages/ExploreLand'));
+const SearchByState = lazy(() => import('./pages/SearchByState'));
+const FindAgent = lazy(() => import('./pages/FindAgent'));
+const Activities = lazy(() => import('./pages/Activities'));;
+const Login = lazy(() => import('./pages/Login'));
+const AddListing = lazy(() => import('./pages/AddListing'));
+const Signup = lazy(() => import('./pages/Signup'));
+// const Dashboard = lazy(() => import('./pages/Dashboard'));
+// Optional: create placeholder components if you don’t have them yet
+const SavedProperties = () => <div>Saved Properties Page</div>;
+const PropertyDetails = () => <div>Property Details Page</div>;
+
+// Simple fallback component
+const LoadingSpinner = ({ fullScreen }) => (
+  <div className={`flex items-center justify-center ${fullScreen ? "min-h-screen" : "min-h-[200px]"}`}>
+    <p className="text-lg">Loading...</p>
+  </div>
+);
+
+// Scroll restoration
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 function App() {
   const [activeTab, setActiveTab] = useState('all');
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(`Navigated to: ${location.pathname}`);
+  }, [location]);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <ScrollToTop />
       <Navbar />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Hero />
-              <SearchBar />
-              <Property />
-              <ShowcaseProperties activeTab={activeTab} setActiveTab={setActiveTab} />
-              <AdvertiseSection />
-              <ListingCTA />
-            </>
-          }
-        />
-        <Route path="/explore-land" element={<ExploreLand />} />
-        <Route path="/search-by-state" element={<SearchByState />} />
-        <Route path="/find-agent" element={<FindAgent />} />
-        {/* <Route path="/activities" element={<Activities />} /> */}
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/login" element={<Login />} />
-        {/* <Route path="/add-listing" element={<AddListing />} /> */}
-        <Route path="/property/:id" element={<Property/>} />
-      </Routes>
+      
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          duration: 4000,
+          style: { background: '#333', color: '#fff' },
+        }}
+      />
+
+      <AnimatePresence mode="wait">
+        <Suspense fallback={<LoadingSpinner fullScreen />}>
+          <Routes location={location} key={location.pathname}>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Hero />
+                  <SearchBar />
+                  <PropertyTypes />
+                  <ShowcaseProperties activeTab={activeTab} setActiveTab={setActiveTab} />
+                  <AdvertiseSection />
+                  <ListingCTA />
+                </>
+              }
+            />
+            <Route path="/explore-land" element={<ExploreLand />} />
+            <Route path="/search-by-state" element={<SearchByState />} />
+            <Route path="/find-agent" element={<FindAgent />} />
+            <Route path="/activities" element={<Activities />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/add-listing" element={<AddListing />} />
+            {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+            <Route path="/saved-properties" element={<SavedProperties />} />
+            <Route path="/property/:id" element={<PropertyDetails />} />
+
+            {/* 404 Page */}
+            <Route
+              path="*"
+              element={
+                <div className="flex flex-col items-center justify-center min-h-[60vh]">
+                  <h2 className="text-4xl font-bold mb-4 dark:text-white">404</h2>
+                  <p className="text-xl dark:text-gray-300">Page Not Found</p>
+                </div>
+              }
+            />
+          </Routes>
+        </Suspense>
+      </AnimatePresence>
+      
       <Footer />
     </div>
   );
