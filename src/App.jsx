@@ -12,7 +12,7 @@ const SearchBar = lazy(() => import('./components/SearchBar'));
 const PropertyTypes = lazy(() => import('./components/Propertypes'));
 const ShowcaseProperties = lazy(() => import('./components/ShowcaseProperty'));
 const AdvertiseSection = lazy(() => import('./components/AdvertiseSection'));
-const ListingCTA = lazy(() => import('./components/ListingCTA'));
+const ListingCTA = lazy(() => import('./components/ListingCta'));
 
 const ExploreLand = lazy(() => import('./pages/ExploreLand'));
 const SearchByState = lazy(() => import('./pages/SearchByState'));
