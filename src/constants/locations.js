@@ -1,0 +1,120 @@
+// Nigerian cities and neighborhoods
+export const NIGERIAN_LOCATIONS = {
+  Lagos: {
+    name: 'Lagos',
+    state: 'Lagos',
+    neighborhoods: [
+      'Lekki Phase 1',
+      'Lekki Phase 2',
+      'Ikoyi',
+      'Victoria Island (VI)',
+      'Ajah',
+      'Banana Island',
+      'Yaba',
+      'Shomolu',
+      'Mushin',
+      'Alimosho',
+      'Surulere',
+      'Lagos Island',
+      'Magodo',
+      'Oregun',
+      'Ilupeju',
+    ],
+  },
+  Abuja: {
+    name: 'Abuja',
+    state: 'Federal Capital Territory',
+    neighborhoods: [
+      'Wuse 2',
+      'Wuse 1',
+      'Garki',
+      'Maitama',
+      'Ikoyi',
+      'Gwarinpa',
+      'Kubwa',
+      'Life Camp',
+      'Kado',
+      'Asokoro',
+      'Jahi',
+      'Katampe',
+    ],
+  },
+  'Port Harcourt': {
+    name: 'Port Harcourt',
+    state: 'Rivers',
+    neighborhoods: [
+      'GRA Port Harcourt',
+      'Diobu',
+      'Mile 2',
+      'Rumuola',
+      'Rumeme',
+      'Rumudomaya',
+      'Elechi',
+      'New GRA',
+      'Slipway',
+      'Trans-Amadi',
+    ],
+  },
+  Ibadan: {
+    name: 'Ibadan',
+    state: 'Oyo',
+    neighborhoods: [
+      'GRA Ibadan',
+      'Jericho',
+      'Bodija',
+      'Alausa',
+      'New Garage',
+      'Eleyele',
+      'Oluyole',
+      'Apata',
+      'Mokola',
+    ],
+  },
+  Enugu: {
+    name: 'Enugu',
+    state: 'Enugu',
+    neighborhoods: [
+      'Independence Layout',
+      'New Haven',
+      'Ogui',
+      'Enugu-Ezike',
+      'Garki',
+      'Trans-Ekulu',
+      'Achara Layout',
+      'Reclamation',
+    ],
+  },
+  Kano: {
+    name: 'Kano',
+    state: 'Kano',
+    neighborhoods: [
+      'GRA Kano',
+      'Nassarawa',
+      'Fagge',
+      'Sabon Gari',
+      'Dawakin Kudu',
+      'Dala',
+      'Tarauni',
+      'Ungogo',
+    ],
+  },
+  Kaduna: {
+    name: 'Kaduna',
+    state: 'Kaduna',
+    neighborhoods: [
+      'Kaduna GRA',
+      'Kakuri',
+      'Unguwar Rima',
+      'Sabo',
+      'Mudigin',
+      'Kawo',
+      'Malali',
+    ],
+  },
+};
+
+export const getCitiesList = () => Object.keys(NIGERIAN_LOCATIONS);
+
+export const getNeighborhoodsByCity = (city) => NIGERIAN_LOCATIONS[city]?.neighborhoods || [];
+
+export const getAllCitiesWithNeighborhoods = () => NIGERIAN_LOCATIONS;
